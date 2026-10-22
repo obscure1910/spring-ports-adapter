@@ -1,5 +1,6 @@
 package de.obscure1910.pattern.ports.portsadapter.greeting.adapter.in;
 
+import de.obscure1910.pattern.ports.portsadapter.greeting.adapter.out.persistence.InMemoryGreetingHistoryAdapter;
 import de.obscure1910.pattern.ports.portsadapter.greeting.application.port.in.SayHello;
 import de.obscure1910.pattern.ports.portsadapter.greeting.domain.model.User;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,9 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,6 +23,9 @@ class GreetingCliAdapterTest {
 
     @Mock
     private SayHello sayHello;
+
+    @Spy
+    InMemoryGreetingHistoryAdapter historyRepository;
 
     @InjectMocks
     private GreetingCliAdapter adapter;

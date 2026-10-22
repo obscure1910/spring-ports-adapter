@@ -1,14 +1,12 @@
 package de.obscure1910.pattern.ports.portsadapter.greeting.application;
 
+import de.obscure1910.pattern.ports.portsadapter.greeting.adapter.out.persistence.InMemoryGreetingHistoryAdapter;
 import de.obscure1910.pattern.ports.portsadapter.greeting.application.port.out.console.Printer;
 import de.obscure1910.pattern.ports.portsadapter.greeting.domain.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class GreetingServiceTest {
@@ -16,15 +14,23 @@ class GreetingServiceTest {
     @Mock
     private Printer printer;
 
+    @Spy
+    private InMemoryGreetingHistoryAdapter historyRepository;
+
     @InjectMocks
     private GreetingService greetingService;
 
     @Test
-    void shouldSayHelloViaPrinterPort() {
+    void shouldSayHelloAndHelloAgainViaPrinterPort() {
         User user = new User("Alice");
 
         greetingService.sayHello(user);
+        greetingService.sayHello(user);
 
-        verify(printer).print("Hello Alice!");
+        InOrder inOrder = Mockito.inOrder(printer);
+
+        inOrder.verify(printer).print("Herzlich willkommen zum ersten Mal, Alice!");
+        inOrder.verify(printer).print("Schön dich wiederzusehen, Alice! (Besuch #2)");
     }
+
 }

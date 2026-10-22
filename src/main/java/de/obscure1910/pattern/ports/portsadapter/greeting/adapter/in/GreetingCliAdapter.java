@@ -3,18 +3,15 @@ package de.obscure1910.pattern.ports.portsadapter.greeting.adapter.in;
 import de.obscure1910.pattern.ports.portsadapter.greeting.application.port.in.SayHello;
 import de.obscure1910.pattern.ports.portsadapter.greeting.domain.model.User;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GreetingCliAdapter implements CommandLineRunner {
 
-    private final ConfigurableApplicationContext context;
     private final SayHello sayHello;
 
-    public GreetingCliAdapter(SayHello sayHello, ConfigurableApplicationContext context) {
+    public GreetingCliAdapter(SayHello sayHello) {
         this.sayHello = sayHello;
-        this.context = context;
     }
 
     @Override
@@ -23,6 +20,5 @@ public class GreetingCliAdapter implements CommandLineRunner {
             throw new IllegalArgumentException("Username argument is required.");
         }
         sayHello.sayHello(new User(args[0]));
-        context.close();
     }
 }
