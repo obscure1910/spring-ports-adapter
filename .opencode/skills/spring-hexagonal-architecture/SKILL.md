@@ -1,6 +1,6 @@
 ---
 name: spring-hexagonal-architecture
-description: Use when designing, implementing, or reviewing Spring Boot features with Ports and Adapters, application ports, inbound or outbound adapters, Spring Modulith module boundaries, or ArchUnit architecture tests.
+description: Use when designing, implementing, or reviewing a Spring Boot Ports-and-Adapters feature, especially when adding or replacing persistence layers or database adapters (H2, JDBC, JPA), application ports, inbound/outbound adapters, Spring Modulith module boundaries, or ArchUnit architecture tests.
 ---
 
 # Spring Hexagonal Architecture
