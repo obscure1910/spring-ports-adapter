@@ -4,6 +4,13 @@ Eine minimale Demonstration des **Ports & Adapters (Hexagonal Architecture)** Pa
 
 ---
 
+## Voraussetzungen
+
+- Java 25
+- Kein lokal installiertes Maven erforderlich: Der Maven Wrapper (`./mvnw`) wird verwendet.
+
+---
+
 ## Starten über die CLI
 
 ### 1. Direkt mit dem Maven-Wrapper ausführen
@@ -23,8 +30,43 @@ Eine minimale Demonstration des **Ports & Adapters (Hexagonal Architecture)** Pa
 
 **Starten:**
 ```bash
-java -jar target/ports-adapter-0.0.1-SNAPSHOT.jar Bob
+java -jar target/spring-ports-adapter-0.0.1-SNAPSHOT.jar Bob
 ```
+
+---
+
+## Verhalten
+
+Beim Start mit einem Benutzernamen:
+
+1. gibt die Anwendung eine Begrüßung aus,
+2. zählt die Besuche während der aktuellen Programmlaufzeit,
+3. meldet den Login an ein simuliertes Drittsystem über die Konsole.
+
+Beispiel:
+
+```text
+Herzlich willkommen zum ersten Mal, Alice!
+Drittsystem informiert: user=Alice, loggedInAt=2026-10-26T10:00:00Z
+```
+
+Die Besuchshistorie wird aktuell nur im Speicher gehalten und nach dem Beenden der Anwendung zurückgesetzt.
+
+---
+
+## Architektur
+
+Das Projekt demonstriert zwei fachliche Module:
+
+- `greeting`: Begrüßung und Besuchshistorie.
+- `notification`: Weitergabe eines Login-Ereignisses an ein Drittsystem.
+
+Die fachliche Anwendung von `greeting` verwendet einen eigenen Outbound-Port. Nur der Adapter `greeting.adapter.out.notification` kennt den öffentlichen Inbound-Port von `notification`.
+
+Die Grenzen werden automatisiert geprüft:
+
+- **Spring Modulith** schützt die öffentlichen Modulschnittstellen.
+- **ArchUnit** stellt sicher, dass nur `greeting.adapter.out.notification` auf `notification.application.port.in` zugreifen darf.
 
 ---
 
@@ -32,6 +74,8 @@ java -jar target/ports-adapter-0.0.1-SNAPSHOT.jar Bob
 ```bash
 ./mvnw test
 ```
+
+Der Testlauf enthält Unit-, Spring-Kontext-, Spring-Modulith- und ArchUnit-Tests.
 
 ---
 

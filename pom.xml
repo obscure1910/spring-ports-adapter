@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.obscure1910.pattern</groupId>
-    <artifactId>ports-adapter</artifactId>
+    <artifactId>spring-ports-adapter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ports-adapter</name>
     <description>ports-adapter</description>
@@ -31,6 +31,12 @@
         <spring-modulith.version>2.1.1</spring-modulith.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>1.4.2</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.modulith</groupId>
             <artifactId>spring-modulith-starter-core</artifactId>

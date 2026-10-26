@@ -29,10 +29,10 @@
 ### Task 1: Greeting-owned notification output contract
 
 **Files:**
-- Create: `src/main/java/de/obscure1910/pattern/ports/portsadapter/greeting/application/port/out/notification/UserLoginNotification.java`
-- Create: `src/main/java/de/obscure1910/pattern/ports/portsadapter/greeting/application/port/out/notification/UserLoginNotifier.java`
-- Modify: `src/test/java/de/obscure1910/pattern/ports/portsadapter/greeting/application/GreetingServiceTest.java`
-- Modify: `src/main/java/de/obscure1910/pattern/ports/portsadapter/greeting/application/GreetingService.java`
+- Create: `../../../src/main/java/de/obscure1910/pattern/portsadapter`
+- Create: `../../../src/main/java/de/obscure1910/pattern/portsadapter`
+- Modify: `../../../src/test/java/de/obscure1910/pattern/portsadapter`
+- Modify: `../../../src/main/java/de/obscure1910/pattern/portsadapter`
 
 **Interfaces:**
 - Produces: `UserLoginNotification(String username, Instant loggedInAt)` and `UserLoginNotifier.notify(UserLoginNotification notification)`.
@@ -61,8 +61,8 @@ Expected: PASS.
 ### Task 2: Notification module integration adapter
 
 **Files:**
-- Create: `src/main/java/de/obscure1910/pattern/ports/portsadapter/greeting/adapter/out/notification/NotificationModuleUserLoginNotifier.java`
-- Create: `src/test/java/de/obscure1910/pattern/ports/portsadapter/greeting/adapter/out/notification/NotificationModuleUserLoginNotifierTest.java`
+- Create: `../../../src/main/java/de/obscure1910/pattern/portsadapter`
+- Create: `../../../src/test/java/de/obscure1910/pattern/portsadapter`
 
 **Interfaces:**
 - Consumes: `UserLoginNotifier.notify(UserLoginNotification notification)` and Notification's published `NotifyUserLogin.notify(LoginNotificationCommand command)`.
@@ -91,7 +91,7 @@ Expected: PASS.
 ### Task 3: Verify complete architecture and suite
 
 **Files:**
-- Verify: `src/test/java/de/obscure1910/pattern/ports/portsadapter/ApplicationTests.java`
+- Verify: `../../../src/test/java/de/obscure1910/pattern/portsadapter`
 
 **Interfaces:**
 - Consumes: the completed Greeting port and adapter.
