@@ -1,11 +1,11 @@
 package de.obscure1910.pattern.portsadapter.greeting.application;
 
 import de.obscure1910.pattern.portsadapter.greeting.adapter.out.persistence.InMemoryGreetingHistoryAdapter;
-import de.obscure1910.pattern.portsadapter.greeting.application.port.out.console.Printer;
 import de.obscure1910.pattern.portsadapter.greeting.application.port.out.notification.UserLoginNotification;
 import de.obscure1910.pattern.portsadapter.greeting.application.port.out.notification.UserLoginNotifier;
 import de.obscure1910.pattern.portsadapter.greeting.application.port.out.time.CurrentTimeProvider;
 import de.obscure1910.pattern.portsadapter.greeting.domain.model.User;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -20,9 +20,6 @@ import static org.mockito.Mockito.when;
 class GreetingServiceTest {
 
     @Mock
-    private Printer printer;
-
-    @Mock
     private UserLoginNotifier userLoginNotifier;
 
     @Mock
@@ -35,16 +32,14 @@ class GreetingServiceTest {
     private GreetingService greetingService;
 
     @Test
-    void shouldSayHelloAndHelloAgainViaPrinterPort() {
+    void shouldReturnGreetingForFirstAndReturningVisit() {
         User user = new User("Alice");
 
-        greetingService.sayHello(user);
-        greetingService.sayHello(user);
+        var result1 = greetingService.sayHello(user);
+        var result2 = greetingService.sayHello(user);
 
-        InOrder inOrder = Mockito.inOrder(printer);
-
-        inOrder.verify(printer).print("Herzlich willkommen zum ersten Mal, Alice!");
-        inOrder.verify(printer).print("Schön dich wiederzusehen, Alice! (Besuch #2)");
+        Assertions.assertEquals("Herzlich willkommen zum ersten Mal, Alice!", result1);
+        Assertions.assertEquals("Schön dich wiederzusehen, Alice! (Besuch #2)", result2);
     }
 
     @Test

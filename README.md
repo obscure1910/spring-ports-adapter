@@ -11,17 +11,30 @@ Eine minimale Demonstration des **Ports & Adapters (Hexagonal Architecture)** Pa
 
 ---
 
-## Starten über die CLI
+## Starten
 
-### 1. Direkt mit dem Maven-Wrapper ausführen
+### 1. REST-Schnittstelle starten
+
 ```bash
-# Mit Argument starten:
-./mvnw spring-boot:run -Dspring-boot.run.arguments="Alice"
+./mvnw spring-boot:run
+```
+
+Die Anwendung ist anschließend unter Port `8888` erreichbar:
+
+```bash
+curl "http://localhost:8888/greeting?name=Alice"
+```
+
+### 2. CLI als Alternative starten
+
+```bash
+./mvnw spring-boot:run \
+  -Dspring-boot.run.arguments="Alice --app.cli.enabled=true --spring.main.web-application-type=none"
 ```
 
 ---
 
-### 2. Als JAR bauen und ausführen
+### 3. Als JAR bauen und ausführen
 
 **Bauen:**
 ```bash
@@ -30,16 +43,16 @@ Eine minimale Demonstration des **Ports & Adapters (Hexagonal Architecture)** Pa
 
 **Starten:**
 ```bash
-java -jar target/spring-ports-adapter-0.0.1-SNAPSHOT.jar Bob
+java -jar target/spring-ports-adapter-0.0.1-SNAPSHOT.jar
 ```
 
 ---
 
 ## Verhalten
 
-Beim Start mit einem Benutzernamen:
+Bei einer Begrüßungsanfrage:
 
-1. gibt die Anwendung eine Begrüßung aus,
+1. erzeugt die Anwendung eine Begrüßung,
 2. zählt die Besuche während der aktuellen Programmlaufzeit,
 3. meldet den Login an ein simuliertes Drittsystem über die Konsole.
 
@@ -50,7 +63,7 @@ Herzlich willkommen zum ersten Mal, Alice!
 Drittsystem informiert: user=Alice, loggedInAt=2026-10-26T10:00:00Z
 ```
 
-Die Besuchshistorie wird aktuell nur im Speicher gehalten und nach dem Beenden der Anwendung zurückgesetzt.
+Die Besuchshistorie wird aktuell nur im Speicher gehalten und nach dem Beenden der Anwendung zurückgesetzt. Die REST-Schnittstelle antwortet bei fehlendem oder leerem `name` mit HTTP 200 und `Wie heißt die zu grüßende Person?`.
 
 ---
 
@@ -85,3 +98,5 @@ Der Testlauf enthält Unit-, Spring-Kontext-, Spring-Modulith- und ArchUnit-Test
    👉 [`EXERCISE_1_VISIT_COUNTER.md`](EXERCISE_1_VISIT_COUNTER.md)
 2. **Login-Benachrichtigung:** Neues Feature mit Benachrichtigung eines Drittsystems:
    👉 [`EXERCISE_2_LOGIN_NOTIFICATION.md`](EXERCISE_2_LOGIN_NOTIFICATION.md)
+3. **REST-Begrüßung:** Alternativer Inbound-Adapter mit einem REST-Controller:
+   👉 [`EXERCISE_3_REST_GREETING.md`](EXERCISE_3_REST_GREETING.md)

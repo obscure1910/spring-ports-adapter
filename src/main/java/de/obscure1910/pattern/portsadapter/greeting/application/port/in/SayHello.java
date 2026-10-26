@@ -4,6 +4,6 @@ import de.obscure1910.pattern.portsadapter.greeting.domain.model.User;
 
 public interface SayHello {
 
-    void sayHello(User user);
+    String sayHello(User user);
 
 }

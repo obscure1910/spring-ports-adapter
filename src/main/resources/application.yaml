@@ -1,3 +1,6 @@
 spring:
   application:
     name: ports-adapter
+
+server:
+  port: 8888
