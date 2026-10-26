@@ -5,7 +5,6 @@ import de.obscure1910.pattern.portsadapter.greeting.domain.model.User;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Profile("!in-memory")
@@ -18,7 +17,6 @@ public class JdbcGreetingHistoryAdapter implements GreetingHistoryRepository {
     }
 
     @Override
-    @Transactional
     public int incrementAndGetVisits(User user) {
         jdbcTemplate.update("""
                 MERGE INTO greeting_history (user_name, visit_count)

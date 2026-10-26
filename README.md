@@ -53,7 +53,7 @@ java -jar target/spring-ports-adapter-0.0.1-SNAPSHOT.jar
 Bei einer Begrüßungsanfrage:
 
 1. erzeugt die Anwendung eine Begrüßung,
-2. zählt die Besuche während der aktuellen Programmlaufzeit,
+2. zählt die Besuche dauerhaft in einer lokalen H2-Datenbank,
 3. meldet den Login an ein simuliertes Drittsystem über die Konsole.
 
 Beispiel:
@@ -63,7 +63,15 @@ Herzlich willkommen zum ersten Mal, Alice!
 Drittsystem informiert: user=Alice, loggedInAt=2026-10-26T10:00:00Z
 ```
 
-Die Besuchshistorie wird aktuell nur im Speicher gehalten und nach dem Beenden der Anwendung zurückgesetzt. Die REST-Schnittstelle antwortet bei fehlendem oder leerem `name` mit HTTP 200 und `Wie heißt die zu grüßende Person?`.
+Die Besuchshistorie wird standardmäßig dateibasiert in `data/ports-adapter` gespeichert und bleibt nach einem Neustart erhalten. Die erzeugten H2-Dateien sind nicht versioniert.
+
+Für eine nur temporäre In-Memory-Historie kann das Profil `in-memory` aktiviert werden:
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=in-memory
+```
+
+Die REST-Schnittstelle antwortet bei fehlendem oder leerem `name` mit HTTP 200 und `Wie heißt die zu grüßende Person?`.
 
 ---
 
