@@ -26,35 +26,7 @@ class GreetingService implements SayHello {
 
 A JPA adapter implements `VisitHistory`; it maps between entities and domain types without leaking JPA into `GreetingService`. The service owns the transaction because it owns the write use case; the adapter must not declare `@Transactional`.
 
-## 2. Atomic durable counter adapter
-
-The adapter does not coordinate concurrent callers with `synchronized`. The database owns atomic state transitions; the application service above owns the transaction boundary.
-
-```java
-class JdbcVisitHistory implements VisitHistory {
-    private final JdbcTemplate jdbc;
-
-    @Override
-    public int incrementAndGetVisits(User user) {
-        int updated = jdbc.update(
-            "UPDATE visit_history SET visits = visits + 1 WHERE user_name = ?", user.name());
-        if (updated == 0) {
-            try {
-                jdbc.update("INSERT INTO visit_history (user_name, visits) VALUES (?, 1)", user.name());
-            } catch (DuplicateKeyException duplicate) {
-                jdbc.update(
-                    "UPDATE visit_history SET visits = visits + 1 WHERE user_name = ?", user.name());
-            }
-        }
-        return jdbc.queryForObject(
-            "SELECT visits FROM visit_history WHERE user_name = ?", Integer.class, user.name());
-    }
-}
-```
-
-Test the adapter with concurrent calls for one user, a fresh datasource against the same file database, and a name such as `Ada Lovelace's Test`. Assert every increment is retained; do not accept a passing sequential test as proof of write correctness.
-
-## 3. REST as an inbound adapter
+## 2. REST as an inbound adapter
 
 The controller handles HTTP only and delegates through the inbound port:
 
@@ -72,7 +44,7 @@ class GreetingController {
 
 Test it with `@WebMvcTest` and `@MockitoBean SayHello`; do not load persistence or other feature modules for a controller test.
 
-## 4. A narrow cross-module adapter
+## 3. A narrow cross-module adapter
 
 Keep a foreign module out of the application service:
 
@@ -97,7 +69,7 @@ classes()
 
 Then add a second rule allowing the payment adapter to use only `com.example.payment.application.port.in..` from the payment module.
 
-## 5. Modulith verification
+## 4. Modulith verification
 
 Keep the module graph executable:
 
