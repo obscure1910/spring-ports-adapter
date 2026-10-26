@@ -1,4 +1,4 @@
-# Übungsaufgabe: Besuchszähler ("Schön dich wiederzusehen")
+# Übungsaufgabe 1: Besuchszähler ("Schön dich wiederzusehen")
 
 Dieses Dokument beschreibt eine Übungsaufgabe, um das **Ports & Adapters (Hexagonal Architecture)** Pattern anhand einer einfachen Datenhaltungslogik eigenständig zu vertiefen.
 
@@ -6,7 +6,7 @@ Dieses Dokument beschreibt eine Übungsaufgabe, um das **Ports & Adapters (Hexag
 
 ## 🎯 Ziel der Aufgabe
 
-Aktuell gibt `GreetingService` einfach `"Hello <name>!"` aus. Nun soll die Begrüßung davon abhängen, wie oft ein Benutzer die Anwendung bereits aufgerufen hat:
+In der Ausgangsversion gibt `GreetingService` einfach `"Hello <name>!"` aus. Die Begrüßung soll davon abhängen, wie oft ein Benutzer die Anwendung bereits aufgerufen hat:
 
 - **1. Besuch:**  
   `"Herzlich willkommen zum ersten Mal, Alice!"`

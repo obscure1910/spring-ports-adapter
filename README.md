@@ -35,8 +35,9 @@ java -jar target/ports-adapter-0.0.1-SNAPSHOT.jar Bob
 
 ---
 
-## 📚 Übungsaufgabe
+## 📚 Übungsaufgaben
 
-Eine detaillierte Aufgabe zur Erweiterung des Projekts um einen **Persistence-Outbound-Port (Besuchszähler)** findest du in:
-👉 [`EXERCISE_VISIT_COUNTER.md`](EXERCISE_VISIT_COUNTER.md)
-
+1. **Besuchszähler:** Erweiterung um einen Persistence-Outbound-Port:
+   👉 [`EXERCISE_1_VISIT_COUNTER.md`](EXERCISE_1_VISIT_COUNTER.md)
+2. **Login-Benachrichtigung:** Neues Feature mit Benachrichtigung eines Drittsystems:
+   👉 [`EXERCISE_2_LOGIN_NOTIFICATION.md`](EXERCISE_2_LOGIN_NOTIFICATION.md)
