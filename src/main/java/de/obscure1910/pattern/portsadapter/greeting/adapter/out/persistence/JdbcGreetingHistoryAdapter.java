@@ -18,10 +18,9 @@ public class JdbcGreetingHistoryAdapter implements GreetingHistoryRepository {
     }
 
     @Override
-    public synchronized int incrementAndGetVisits(User user) {
-        int updatedRows = jdbcTemplate.update(
-                "UPDATE greeting_history SET visit_count = visit_count + 1 WHERE user_name = ?", user.name());
-        if (updatedRows == 0) {
+    public int incrementAndGetVisits(User user) {
+        if (jdbcTemplate.update(
+                "UPDATE greeting_history SET visit_count = visit_count + 1 WHERE user_name = ?", user.name()) == 0) {
             try {
                 jdbcTemplate.update("INSERT INTO greeting_history (user_name, visit_count) VALUES (?, 1)", user.name());
             } catch (DuplicateKeyException exception) {
@@ -30,7 +29,7 @@ public class JdbcGreetingHistoryAdapter implements GreetingHistoryRepository {
             }
         }
         Integer visits = jdbcTemplate.queryForObject(
-                "SELECT visit_count FROM greeting_history WHERE user_name = ?", Integer.class, user.name());
+                "SELECT visit_count FROM greeting_history WHERE user_name = ? FOR UPDATE", Integer.class, user.name());
         return visits;
     }
 }

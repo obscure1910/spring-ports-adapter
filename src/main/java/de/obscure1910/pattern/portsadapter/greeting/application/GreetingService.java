@@ -7,6 +7,7 @@ import de.obscure1910.pattern.portsadapter.greeting.application.port.out.persist
 import de.obscure1910.pattern.portsadapter.greeting.application.port.out.time.CurrentTimeProvider;
 import de.obscure1910.pattern.portsadapter.greeting.domain.model.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GreetingService implements SayHello {
@@ -24,6 +25,7 @@ public class GreetingService implements SayHello {
     }
 
     @Override
+    @Transactional
     public String sayHello(User user) {
         var currentTime = currentTimeProvider.now();
         int visits = this.historyRepository.incrementAndGetVisits(user);
