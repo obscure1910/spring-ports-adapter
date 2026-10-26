@@ -1,6 +1,7 @@
 HELP.md
 target/
 data/
+/docs/superpowers/plans/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
